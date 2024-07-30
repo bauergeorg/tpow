@@ -59,6 +59,8 @@ class USB9097:
     def dat_write(self, buf):
         def _w(v):
             self.uart.write([v])
+            if v == 0xE3:
+                self.uart.write([v])
             return self.uart.read(1)
         self.set_mode(USB9097._MODE_DAT)
         return [_w(a) for a in buf]
